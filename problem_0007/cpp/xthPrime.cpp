@@ -13,6 +13,7 @@ int getNextPrime(long basePrime, vector<Number> &primes) {
 	}
 }
 
+//TODO don't use the index but rather the value the prime
 void erastothenes(long basePrime, vector<Number> &primes) {
 	long thresh = primes.size();
 	if (basePrime > ((thresh/2)+1))
@@ -25,14 +26,11 @@ void erastothenes(long basePrime, vector<Number> &primes) {
 	erastothenes(basePrime, primes);
 }
 
-//TODO use a class to store the number, the accompanying primes, and the largest prime factor
 //TODO remove all those that are not primes to save memory
-//TODO zero is not a prime number ;)
-//TODO user input for number
+//TODO zero and one are no prime numbers ;)
 int main() {
-	//long number = 600851475143;
-	//long number = 13195;
-	long number = 10000;
+	long number = 1000000;
+	long xth = 10001;
 	vector<Number> primes;
 	for (long i=0; i<=number; ++i) {
 		primes.push_back(Number(i));
@@ -40,10 +38,15 @@ int main() {
 
 	erastothenes(2, primes);
 
-	cout << "All prime numbers smaller than " << number << " are:" << endl;
+	cout << "The " << xth << "st prime number is: ";
+
+	long i = 0;
 
 	for(vector<Number>::iterator it = primes.begin(); it != primes.end(); ++it) {
-		if (it->isPrime)
-			cout << it->value << endl;
+		if (it->isPrime) {
+			++i;
+			if (i == xth+2)
+				cout << it->value << endl;
+		}
 	}
 }
