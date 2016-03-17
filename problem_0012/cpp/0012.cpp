@@ -8,13 +8,13 @@ long triangleNumberMoreThanLimitDivisors(int limit) {
 	while (true) {
 		triangleNumber += i;
 		int divisors = 0;
-		for (int j=1; j<triangleNumber+1; ++j) {
+		for (int j=1; j<(triangleNumber+1)/2; ++j) {
 			if (triangleNumber%j == 0)
 				++divisors;
 			if (j > triangleNumber/20 && divisors < limit/10)
 				break;
 		}
-		if (divisors > limit)
+		if (divisors > limit-1)
 			return triangleNumber;
 		++i;
 	}
