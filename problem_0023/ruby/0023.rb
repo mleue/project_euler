@@ -1,22 +1,16 @@
-class Fixnum
-	def abundant?
-		self.divisorSum > self
-	end
+require_relative 'lib/fixnum_ext.rb'
 
-	def divisorSum
-		sum = 0
-		(1..self/2).each do |i|
-			sum += (self%i == 0) ? i : 0
-		end
-		sum
-	end
-end
-
+time_begin = Time.now
+thresh = 28123
 abundant_numbers = []
-(1..28123).each do |n|
+(1...thresh).each do |n|
 	if (n.abundant?)
 		abundant_numbers.push(n)
 	end
 end
 
-puts abundant_numbers.length
+#sum up all the 2-element subsets of the abundant numbers and delete all duplicates and all under the threshold
+sums_of_abundant_numbers = abundant_numbers.combination(2).to_a.map{|arr| arr.inject(:+)}.push(abundant_numbers.map{|n| n*2}).flatten.uniq.delete_if{|sum| sum > thresh}
+#what numbers below the threshold can therefore not be computed as the sum of two abundant numbers?
+p ((1...thresh).to_a - sums_of_abundant_numbers).inject(:+)
+puts Time.now-time_begin
