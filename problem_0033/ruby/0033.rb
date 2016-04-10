@@ -1,5 +1,7 @@
 thresh = 100
-solution = []
+fractions = []
+numerator = 1
+denumerator = 1
 
 (10...thresh).each do |i|
 	(10...thresh).each do |j|
@@ -12,10 +14,14 @@ solution = []
 		new_den = den-num
 		unless new_num.empty? || new_den.empty? || new_num.join.to_i == 0 || new_den.join.to_i == 0 || new_num == num || new_den == den
 			if new_num.join.to_f/new_den.join.to_f == i.to_f/j.to_f && new_num.join.to_f/new_den.join.to_f < 1
-				solution.push([i,j])
+				fractions.push([i,j])
+				numerator *= i
+				denumerator *= j
 			end
 		end
 	end
 end
 
-p solution
+p fractions
+p numerator
+p denumerator
