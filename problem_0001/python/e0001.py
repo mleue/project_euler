@@ -1,11 +1,6 @@
 def multiples_of_x_below_y(x, y):
   """return list of multiples of x smaller than y"""
   multiples = []
-  z = x
-  while z < y:
-    multiples.append(z)
-    z += x
-
   return multiples
 
 def solution(number_list, threshold):
