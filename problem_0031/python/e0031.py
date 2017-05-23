@@ -1,60 +1,61 @@
+import math
+
 target = 2.0
+values = (2.0, 1.0, 0.5, 0.2, 0.1, 0.05, 0.02)
+all_values = [[i*val for i in range(0, int(target/val) + 1)] for val in values]
+two_pound_values, one_pound_values, fifty_p_values, twenty_p_values, ten_p_values, five_p_values, two_p_values = all_values
+
 count = 0
-for one_p in range(0, 201):
-  one_p_sum = one_p*0.01
-  if one_p_sum > target:
-    break
-  elif one_p_sum == target:
+for two_pounds in two_pound_values:
+  curr_sum = two_pounds
+  if curr_sum == target:
     count += 1
+    break;
+  elif curr_sum > target:
     break
-  for two_p in range(0, 101):
-    two_p_sum = one_p_sum + two_p*0.02
-    if two_p_sum > target:
-      break
-    elif two_p_sum == target:
+  for one_pound in one_pound_values:
+    curr_sum = two_pounds + one_pound
+    if curr_sum == target:
       count += 1
+      break;
+    elif curr_sum > target:
       break
-    for five_p in range(0, 41):
-      five_p_sum = two_p_sum + five_p*0.05
-      if five_p_sum > target:
-        break
-      elif five_p_sum == target:
+    for fifty_p in fifty_p_values:
+      curr_sum = two_pounds + one_pound + fifty_p
+      if curr_sum == target:
         count += 1
+        break;
+      elif curr_sum > target:
         break
-      for ten_p in range(0, 21):
-        ten_p_sum = five_p_sum + ten_p*0.10
-        if ten_p_sum > target:
-          break
-        elif ten_p_sum == target:
+      for twenty_p in twenty_p_values:
+        curr_sum = two_pounds + one_pound + fifty_p + twenty_p
+        if curr_sum == target:
           count += 1
+          break;
+        elif curr_sum > target:
           break
-        for twenty_p in range(0, 11):
-          twenty_p_sum = ten_p_sum + twenty_p*0.20
-          if twenty_p_sum > target:
-            break
-          elif twenty_p_sum == target:
+        for ten_p in ten_p_values:
+          curr_sum = two_pounds + one_pound + fifty_p + twenty_p + ten_p
+          if curr_sum == target:
             count += 1
+            break;
+          elif curr_sum > target:
             break
-          for fifty_p in range(0, 5):
-            fifty_p_sum = twenty_p_sum + fifty_p*0.50
-            if fifty_p_sum > target:
-              break
-            elif fifty_p_sum == target:
+          for five_p in five_p_values:
+            curr_sum = two_pounds + one_pound + fifty_p + twenty_p + ten_p + five_p
+            if curr_sum == target:
               count += 1
+              break;
+            elif curr_sum > target:
               break
-            for one_pound in range(0, 3):
-              one_pound_sum = fifty_p_sum + one_pound*1.00
-              if one_pound_sum > target:
-                break
-              elif one_pound_sum == target:
+            for two_p in two_p_values:
+              curr_sum = two_pounds + one_pound + fifty_p + twenty_p + ten_p + five_p + two_p
+              if curr_sum == target:
                 count += 1
+                break;
+              elif curr_sum > target:
                 break
-              for two_pounds in range(0, 1):
-                two_pound_sum = one_pound_sum + two_pounds*2.00
-                if two_pound_sum > target:
-                  break
-                elif two_pound_sum == target:
-                  count += 1
-                  break
+              else:
+                count += 1
 
 print(count)
