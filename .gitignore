@@ -1,3 +1,5 @@
 *.o
 *.swp
+*.swn
+*.swm
 *__pycache__*
