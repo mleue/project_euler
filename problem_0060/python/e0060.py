@@ -12,7 +12,7 @@ def prime_sieve(thresh):
   return sorted((n for n, is_prime in is_prime_lookup.items() if is_prime))
 
 def prime_sieve2(n):
-  """ Returns  a list of primes < n """
+  """Returns a list of primes < n"""
   sieve = [True] * n
   for i in range(3,int(n**0.5)+1,2):
     if sieve[i]:
@@ -35,11 +35,11 @@ def is_prime(n):
     w = 6 - w
   return True
 
-def concatenate_to_prime(prime1, prime2):
+def concatenate_to_prime(prime1, prime2, primes_set):
   """check if the two primes concatenate to another prime in all combinations"""
   prime1_str = str(prime1)
   prime2_str = str(prime2)
-  return is_prime(int(prime1_str + prime2_str)) and is_prime(int(prime2_str + prime1_str))
+  return int(prime1_str + prime2_str) in primes_set and int(prime2_str + prime1_str) in primes_set
 
 def get_all_combinations(prime, primes_set):
   prime_str = str(prime)
@@ -58,29 +58,22 @@ def get_all_combinations(prime, primes_set):
 
 if __name__ == '__main__':
   start = time.time()
-  primes = prime_sieve2(100000000)
-  primes_set = set(primes)
+  primes = prime_sieve2(10000)
+  primes_set = set(prime_sieve2(100000000))
   print("{} primes in the sieve".format(len(primes)))
   print("{} seconds to run the prime sieve".format(time.time() - start))
 
+  #check which primes pair with each other to a concatenated prime
   start = time.time()
-  pairs = set()
-  for prime in primes:
-    pairs.update(get_all_combinations(prime, primes_set))
-  print("There are {} pairs".format(len(pairs)))
+  pairs = []
+  count = 0
+  for i1, prime1 in enumerate(primes):
+    for i2, prime2 in enumerate(primes[i1+1:], i1+1):
+      count += 1
+      if concatenate_to_prime(prime1, prime2, primes_set):
+        pairs.append((prime1, prime2))
+  print("There are {} pairs, checking {} combinations".format(len(pairs), count))
   print("{} seconds to compute the pairs".format(time.time() - start))
-
-  ##check which primes pair with each other to a concatenated prime
-  #start = time.time()
-  #pairs = []
-  #count = 0
-  #for i1, prime1 in enumerate(primes):
-  #  for i2, prime2 in enumerate(primes[i1+1:], i1+1):
-  #    count += 1
-  #    if concatenate_to_prime(prime1, prime2):
-  #      pairs.append((prime1, prime2))
-  #print("There are {} pairs, checking {} combinations".format(len(pairs), count))
-  #print("{} seconds to compute the pairs".format(time.time() - start))
 
   #build sets of partners for each prime
   start = time.time()
