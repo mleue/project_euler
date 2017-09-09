@@ -2,5 +2,6 @@
 *.swp
 *.swn
 *.swm
+*.swo
 *__pycache__*
 .ropeproject
