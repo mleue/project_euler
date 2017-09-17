@@ -25,6 +25,11 @@ def update_value(x, y, x_prev, y_prev, matrix_dict):
       matrix_dict[(x, y)]['parent'] = (x_prev, y_prev)
 
 
+def is_valid_index(x, y, l_matrix):
+  """Return True if x, y is a valid index, False if not."""
+  return x < l_matrix and y < l_matrix and x > -1 and y > -1
+
+
 def roll_up_matrix(matrix_dict, l_matrix):
   """Roll up the matrix dict.
 
@@ -35,15 +40,13 @@ def roll_up_matrix(matrix_dict, l_matrix):
   while frontier:
     new_frontier = set()
     for x, y in frontier:
-      if x == l_matrix-1 or y == l_matrix-1:
-        continue
-      update_value(x+1, y, x, y, matrix_dict)
-      new_frontier.add((x+1, y))
-      update_value(x, y+1, x, y, matrix_dict)
-      new_frontier.add((x, y+1))
+      if is_valid_index(x+1, y, l_matrix):
+        update_value(x+1, y, x, y, matrix_dict)
+        new_frontier.add((x+1, y))
+      if is_valid_index(x, y+1, l_matrix):
+        update_value(x, y+1, x, y, matrix_dict)
+        new_frontier.add((x, y+1))
     frontier = new_frontier
-  update_value(l_matrix-1, l_matrix-1, l_matrix-1, l_matrix-2, matrix_dict)
-  update_value(l_matrix-1, l_matrix-1, l_matrix-2, l_matrix-1, matrix_dict)
 
 
 def init_matrix_cell(value):
